@@ -83,3 +83,33 @@ ostream& operator<<(ostream& os, const Matrix& obj) {
 	return os;
 }
 
+
+bool Matrix::operator==(const Matrix &com)
+{
+	return size == com.size ? true : false;
+}
+
+bool Matrix::operator!=(const Matrix &com)
+{
+	return size != com.size ? true : false;
+}
+
+bool Matrix::operator>(const Matrix &com)
+{
+	return size > com.size ? true: false;
+}
+
+bool Matrix::operator<(const Matrix &com)
+{
+	return size < com.size ? true : false;
+}
+
+bool Matrix::operator<=(const Matrix &com)
+{
+	return size <= com.size ? true : false;
+}
+
+bool Matrix::operator>=(const Matrix &com)
+{	
+	return size >= com.size ? true : false;
+}
