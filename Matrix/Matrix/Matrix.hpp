@@ -6,6 +6,7 @@ public:
 	Matrix();
 	Matrix(int);
 	Matrix(int*);
+	Matrix(const Matrix&);
 	~Matrix();
 
 	void set_value(const int, const int, const int);
@@ -19,6 +20,9 @@ public:
 	bool operator<(const Matrix&);
 	bool operator<=(const Matrix&);
 	bool operator>=(const Matrix&);
+	Matrix& operator++();
+	Matrix operator++(int);
+
 
 
 

@@ -19,6 +19,12 @@ Matrix::Matrix(int *array) {
 	//this->array = array;
 }
 
+//Copy constructor
+Matrix::Matrix(const Matrix &rhs) {
+	size = rhs.size;
+	memcpy_s(array, sizeof(array), rhs.array, sizeof(array));
+}
+
 Matrix::~Matrix() {
 	delete[] array;
 }
@@ -83,33 +89,60 @@ ostream& operator<<(ostream& os, const Matrix& obj) {
 	return os;
 }
 
-
+//Overloaded equal comparison
 bool Matrix::operator==(const Matrix &com)
 {
 	return size == com.size ? true : false;
 }
 
+//Overloaded not equal comparison
 bool Matrix::operator!=(const Matrix &com)
 {
 	return size != com.size ? true : false;
 }
 
+//Overloaded greater than comparison
 bool Matrix::operator>(const Matrix &com)
 {
 	return size > com.size ? true: false;
 }
 
+//Overloaded less than comparison
 bool Matrix::operator<(const Matrix &com)
 {
 	return size < com.size ? true : false;
 }
 
+//Overloaded less than or equal to comparison
 bool Matrix::operator<=(const Matrix &com)
 {
 	return size <= com.size ? true : false;
 }
 
+//Overloaded greater than or equal to comparison
 bool Matrix::operator>=(const Matrix &com)
 {	
 	return size >= com.size ? true : false;
 }
+
+//Overloaed increment operator(prefix)
+Matrix & Matrix::operator++()
+{
+	for (int i = 0; i < size; ++i) {
+		for (int j = 0; j < size; ++j) {
+			array[i * size + j]++;
+		}
+	}
+
+	return *this;
+}
+
+//Overloaed increment operator(postfix)
+Matrix Matrix::operator++(int)
+{	
+	Matrix temp(*this);
+	operator++();
+	return temp;
+}
+
+
