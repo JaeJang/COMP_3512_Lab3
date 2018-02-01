@@ -26,8 +26,10 @@ public:
 	Matrix operator--(int);
 	friend void swap(Matrix &, Matrix &);
 	Matrix& operator=(Matrix);
-	Matrix& operator+=(Matrix&);
-	Matrix operator+(Matrix&);
+	Matrix& operator+=(const Matrix&);
+	Matrix operator+(const Matrix&);
+	Matrix & operator-=(const Matrix&);
+	Matrix operator-(const Matrix&);
 
 private:
 	int size;
