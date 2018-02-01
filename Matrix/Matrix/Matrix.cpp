@@ -16,7 +16,7 @@ Matrix::Matrix(int n) : size(n) {
 //PRE	: The size of passed array must have an integer
 //		  square root
 Matrix::Matrix(int *array) {
-	//this->array = array;
+	this->array = array;
 }
 
 //Copy constructor
@@ -85,6 +85,7 @@ ostream& operator<<(ostream& os, const Matrix& obj) {
 		for (int j = 0; j < obj.size; j++) {
 			os << obj.array[i * obj.size + j];
 		}
+		os << endl;
 	}
 	return os;
 }
@@ -177,5 +178,26 @@ void swap(Matrix &first, Matrix &second)
 Matrix & Matrix::operator=(Matrix other)
 {
 	swap(*this, other);
+	return *this;
+}
+
+//Overloaded += operator
+//PRE	: both Matrix have to have the same size
+Matrix & Matrix::operator+=(Matrix &rhs)
+{
+	for (int i = 0; i < size; ++i) {
+		for (int j = 0; j < size; ++j) {
+			this->array[i * size + j] += rhs.array[i * rhs.size + j];
+		}
+	}
+
+	return *this;
+}
+
+//Overloaded + operator
+//PRE	: both Matrix have to have the same size
+Matrix Matrix::operator+(Matrix& rhs)
+{
+	*this += rhs;
 	return *this;
 }

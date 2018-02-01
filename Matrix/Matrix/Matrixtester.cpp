@@ -10,7 +10,7 @@ int main() {
 	Matrix b(3);
 	cout << b << endl;
 
-	int[] wrong_size = { 1, 2, 3 };
+	int wrong_size[] = { 1, 2, 3 };
 	Matrix c(wrong_size);
 
 	b.set_value(0, 0, -1);
@@ -26,5 +26,6 @@ int main() {
 
 	Matrix f = d + e;
 
-	Matrix d += a;
+	Matrix g;
+	g += a;
 }
