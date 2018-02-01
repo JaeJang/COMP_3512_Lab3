@@ -13,11 +13,17 @@ public:
 	void clear();
 	int* identity();
 	friend std::ostream& operator<<(std::ostream&, const Matrix&);
+	bool operator==(const Matrix&);
+	bool operator!=(const Matrix&);
+	bool operator>(const Matrix&);
+	bool operator<(const Matrix&);
+	bool operator<=(const Matrix&);
+	bool operator>=(const Matrix&);
+
+
 
 private:
 	int size;
 	int *array;
-
-	void isValidSize();
 
 };
