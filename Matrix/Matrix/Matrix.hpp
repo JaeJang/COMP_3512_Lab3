@@ -5,7 +5,7 @@ class Matrix {
 public:
 	Matrix();
 	Matrix(int);
-	Matrix(int*);
+	Matrix(int*, int);
 	Matrix(const Matrix&);
 	~Matrix();
 
@@ -30,6 +30,7 @@ public:
 	Matrix operator+(const Matrix&);
 	Matrix & operator-=(const Matrix&);
 	Matrix operator-(const Matrix&);
+	int get_size();
 
 private:
 	int size;

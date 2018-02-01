@@ -12,27 +12,35 @@ int main() {
 	cout << b << endl << endl;
 
 	int wrong_size[] = { 1, 2, 3 };
-	Matrix c(wrong_size);
+	//Since the wrong size passed, c is initialized with 1 X 1 Matrix
+	Matrix c(wrong_size, 3);
 
-	b.set_value(0, 0, -1);
-	b.get_value(0, 0);
 	b.clear();
+	cout << "Matrix b is now set to 1 for all the elements" << endl;
+	for (int i = 0; i < sqrt(b.get_size()); ++i) {
+		for (int j = 0; j < sqrt(b.get_size()); ++j) {
+			b.set_value(i, j, 1);
+		}
+	}
 	cout << b << endl << endl;
-
-	Matrix identity = a.identity();
+	
+	cout << "Identity Matrix for b is created" << endl;
+	Matrix identity(b.identity(), b.get_size());
 	cout << identity << endl << endl;
 
-	Matrix d;
-	Matrix e;
-	if (d == e) { cout << "equal" << endl; }
-	if (d >= e) { cout << "c is greater than d" << endl; }
+	//Matrix b is copied, which fills up with 1
+	Matrix d(b);
 
-	Matrix f = d + e;
-	cout << f << endl << endl;
+	if (d == b) { cout << "equal" << endl; }
+	if (d >= b) { cout << "c is greater than d" << endl; }
 
-	Matrix g;
-	g += a;
-	cout << g << endl << endl;
+	//Expected output is filling up with 2
+	Matrix e = d + b;
+	cout << e << endl << endl;
+
+	//Expected output is filling up with 3
+	e += b;
+	cout << e << endl << endl;
 
 	cout << "Press any button to exit";
 	_getche();

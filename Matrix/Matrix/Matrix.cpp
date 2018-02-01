@@ -16,24 +16,24 @@ Matrix::Matrix(int n) : size(n) {
 //POST: if a passed array doesn't have an integer square root,
 //		initialize the array with size 1
 //		otherwise copy the passed array 
-Matrix::Matrix(int *_array) {
-	const int arraySize = (sizeof(_array) / sizeof(*_array));
+Matrix::Matrix(int *_array, const int arraySize) {
 	if ((int)sqrt(arraySize) * (int)sqrt(arraySize) == arraySize) {
+		size = sqrt(arraySize);
 		array = new int[arraySize];
-		memcpy_s(array, arraySize, _array, arraySize);
-	}
-	else
-		array = new int[1];
+		memcpy_s(array, arraySize * sizeof(int), _array, arraySize * sizeof(int));
 		
-
-	
+	}
+	else {
+		Matrix();
+	}
 }
 
 //Copy constructor
 Matrix::Matrix(const Matrix &rhs) {
 	size = rhs.size;
 	array = new int[size * size];
-	memcpy_s(array, sizeof(array), rhs.array, sizeof(array));
+	memcpy(array, rhs.array, sizeof(int) * size * size);
+	//memcpy_s(array, sizeof(int) * size * size, rhs.array, sizeof(int) * size * size);
 }
 
 Matrix::~Matrix() {
@@ -60,7 +60,7 @@ int Matrix::get_value(const int row, const int col) {
 //PRE	: The array exists
 //POST	: All values in the array set to 0
 void Matrix::clear() {
-	memset(array, 0, sizeof(array));
+	memset(array, 0, sizeof(int) * size * size);
 }
 
 
@@ -69,21 +69,20 @@ void Matrix::clear() {
 //POST	: Create identity matrix whose size is tha same as the array
 //RETURN: Identity matrix created
 int* Matrix::identity() {
-	int *identityArray = (int*)calloc(sizeof(array), sizeof(int));
-	
-	if (identityArray == nullptr) {
+	int* temp = (int*) calloc(size * size, sizeof(int));
+	if (temp == nullptr) {
 		cout << "fail to allocate" << endl;
 		return nullptr;
 	}
-
+	
 	for (int i = 0; i < size; i++) {
 		for (int j = 0; j < size; j++) {
 			if (i == j) {
-				identityArray[i*size + j] = 1;
+				temp[i * size + j] = 1;
 			}
 		}
 	}
-	return identityArray;
+	return temp;
 }
 
 	
@@ -233,4 +232,9 @@ Matrix Matrix::operator-(const Matrix &rhs)
 	*this -= rhs;
 	return *this;
 	return *this;
+}
+
+int Matrix::get_size()
+{
+	return size * size;
 }
