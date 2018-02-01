@@ -145,4 +145,24 @@ Matrix Matrix::operator++(int)
 	return temp;
 }
 
+//Overloaded decrement operator(prefix)
+Matrix & Matrix::operator--()
+{
+	for (int i = 0; i < size; ++i) {
+		for (int j = 0; j < size; ++j) {
+			array[i * size + j]++;
+		}
+	}
+
+	return *this;
+}
+
+//Overloaded decrement operator(postfix)
+Matrix Matrix::operator--(int)
+{
+	Matrix temp(*this);
+	operator--();
+	return temp;
+}
+
 

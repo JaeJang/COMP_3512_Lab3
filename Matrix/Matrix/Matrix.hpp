@@ -22,6 +22,9 @@ public:
 	bool operator>=(const Matrix&);
 	Matrix& operator++();
 	Matrix operator++(int);
+	Matrix& operator--();
+	Matrix operator--(int);
+
 
 
 
