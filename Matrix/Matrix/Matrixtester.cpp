@@ -1,12 +1,14 @@
 #include "Matrix.hpp"
 #include <iostream>
 
+using namespace std;
+
 int main() {
 	Matrix a;
-	std::cout << a << endl;
+	cout << a << endl;
 
 	Matrix b(3);
-	std::cout << b << endl;
+	cout << b << endl;
 
 	int[] wrong_size = { 1, 2, 3 };
 	Matrix c(wrong_size);

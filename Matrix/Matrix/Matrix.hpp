@@ -24,9 +24,8 @@ public:
 	Matrix operator++(int);
 	Matrix& operator--();
 	Matrix operator--(int);
-
-
-
+	friend void swap(Matrix &, Matrix &);
+	Matrix& operator=(Matrix);
 
 
 private:

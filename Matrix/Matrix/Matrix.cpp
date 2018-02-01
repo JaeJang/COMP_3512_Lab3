@@ -166,3 +166,16 @@ Matrix Matrix::operator--(int)
 }
 
 
+//Swap values between two objects
+void swap(Matrix &first, Matrix &second)
+{
+	std::swap(first.size, second.size);
+	std::swap(first.array, second.array);
+}
+
+//Overloaded assignment operator
+Matrix & Matrix::operator=(Matrix other)
+{
+	swap(*this, other);
+	return *this;
+}
