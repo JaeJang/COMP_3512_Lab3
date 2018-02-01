@@ -1,24 +1,29 @@
 #include "Matrix.hpp"
 #include <iostream>
+#include <string.h>
+#include <stdlib.h>
 
 using namespace std;
 
-Matrix::Matrix(int n = 1) : size(n) {
-	
-	isValidSize();
+Matrix::Matrix() : size(1) {
+	array = new int[size * size];
+;}
 
+Matrix::Matrix(int n) : size(n) { 
+	array = new int[size * size];
+}
+
+//PRE	: The size of passed array must have an integer
+//		  square root
+Matrix::Matrix(int *array) {
+	//this->array = array;
+}
+
+Matrix::~Matrix() {
+	delete[] array;
 }
 
 
-//Check wheter entered size is valid
-//PRE	: size should be an integer
-//POST	: terminate the program if it is not valid
-void Matrix::isValidSize() {
-	
-	int root(round(sqrt(size)));
-	if (size != root * root) {
-		cout << "Invalid input" << endl;
-		cout << "Program terminated" << endl;
-		exit(1);
-	}
-}
+
+
+

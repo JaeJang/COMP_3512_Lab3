@@ -1,11 +1,18 @@
 #pragma once
-
-
+#include <iostream>
 class Matrix {
 
 public:
-	Matrix(int = 1);
-	
+	Matrix();
+	Matrix(int);
+	Matrix(int*);
+	~Matrix();
+
+	void set_value(const int, const int, const int);
+	int get_value(const int, const int);
+	void clear();
+	int* identity();
+	friend std::ostream& operator<<(std::ostream&, const Matrix&);
 
 private:
 	int size;
