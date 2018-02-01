@@ -69,4 +69,17 @@ int* Matrix::identity() {
 	return identityArray;
 }
 
+	
+//overloaded insertion operator
+//PRE    : (ostream) << (Matrix object)
+//POST   : when compiler sees above, it will implement the definition
+//RETURN : ostream
+ostream& operator<<(ostream& os, const Matrix& obj) {
+	for (int i = 0; i < obj.size; i++) {
+		for (int j = 0; j < obj.size; j++) {
+			os << obj.array[i * obj.size + j];
+		}
+	}
+	return os;
+}
 
