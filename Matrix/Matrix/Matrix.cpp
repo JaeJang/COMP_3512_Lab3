@@ -13,15 +13,26 @@ Matrix::Matrix(int n) : size(n) {
 	array = new int[size * size];
 }
 
-//PRE	: The size of passed array must have an integer
-//		  square root
-Matrix::Matrix(int *array) {
-	this->array = array;
+//POST: if a passed array doesn't have an integer square root,
+//		initialize the array with size 1
+//		otherwise copy the passed array 
+Matrix::Matrix(int *_array) {
+	const int arraySize = (sizeof(_array) / sizeof(*_array));
+	if ((int)sqrt(arraySize) * (int)sqrt(arraySize) == arraySize) {
+		array = new int[arraySize];
+		memcpy_s(array, arraySize, _array, arraySize);
+	}
+	else
+		array = new int[1];
+		
+
+	
 }
 
 //Copy constructor
 Matrix::Matrix(const Matrix &rhs) {
 	size = rhs.size;
+	array = new int[size * size];
 	memcpy_s(array, sizeof(array), rhs.array, sizeof(array));
 }
 
