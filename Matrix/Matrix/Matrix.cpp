@@ -18,7 +18,10 @@ Matrix::Matrix(int n) : size(n) {
 //		otherwise copy the passed array 
 Matrix::Matrix(int *_array, const int arraySize) {
 	if ((int)sqrt(arraySize) * (int)sqrt(arraySize) == arraySize) {
-		size = sqrt(arraySize);
+
+		//arraySize is full array size(n * n) 
+		//ans size is just n
+		size = (int) sqrt(arraySize);
 		array = new int[arraySize];
 		memcpy_s(array, arraySize * sizeof(int), _array, arraySize * sizeof(int));
 		
@@ -60,7 +63,7 @@ int Matrix::get_value(const int row, const int col) {
 //PRE	: The array exists
 //POST	: All values in the array set to 0
 void Matrix::clear() {
-	memset(array, 0, sizeof(int) * size * size);
+	memset(array, 0, sizeof(int) * get_Arraysize());
 }
 
 
@@ -69,7 +72,7 @@ void Matrix::clear() {
 //POST	: Create identity matrix whose size is tha same as the array
 //RETURN: Identity matrix created
 int* Matrix::identity() {
-	int* temp = (int*) calloc(size * size, sizeof(int));
+	int* temp = (int*) calloc(get_Arraysize(), sizeof(int));
 	if (temp == nullptr) {
 		cout << "fail to allocate" << endl;
 		return nullptr;
@@ -93,7 +96,7 @@ int* Matrix::identity() {
 ostream& operator<<(ostream& os, const Matrix& obj) {
 	for (int i = 0; i < obj.size; i++) {
 		for (int j = 0; j < obj.size; j++) {
-			os << obj.array[i * obj.size + j];
+			os << obj.array[i * obj.size + j] << "\t";
 		}
 		os << endl;
 	}
@@ -101,42 +104,57 @@ ostream& operator<<(ostream& os, const Matrix& obj) {
 }
 
 //Overloaded equal comparison
+//PRE	: both matrixs have size
+//RETURN: return true if they have same size
 bool Matrix::operator==(const Matrix &com)
 {
 	return size == com.size ? true : false;
 }
 
 //Overloaded not equal comparison
+//PRE	: both matrixs have size
+//RETURN: return true if they have different size
 bool Matrix::operator!=(const Matrix &com)
 {
 	return size != com.size ? true : false;
 }
 
 //Overloaded greater than comparison
+//PRE	: both matrixs have size
+//RETURN: return true if lhs is bigger
 bool Matrix::operator>(const Matrix &com)
 {
-	return size > com.size ? true: false;
+	return size > com.size ? true : false;
 }
 
 //Overloaded less than comparison
+//PRE	: both matrixs have size
+//RETURN: return true if lhs is less
 bool Matrix::operator<(const Matrix &com)
 {
 	return size < com.size ? true : false;
 }
 
 //Overloaded less than or equal to comparison
+//PRE	: both matrixs have size
+//RETURN: return true if lhs is less than or equal to rhs
 bool Matrix::operator<=(const Matrix &com)
 {
 	return size <= com.size ? true : false;
 }
 
 //Overloaded greater than or equal to comparison
+//PRE	: both matrixs have size
+//RETURN: return true if lhs is greater than or equal to rhs
 bool Matrix::operator>=(const Matrix &com)
 {	
 	return size >= com.size ? true : false;
 }
 
 //Overloaed increment operator(prefix)
+//PRE	: Matrix initialized
+//POST	: increment of each element
+//RETURN: reference of this object
 Matrix & Matrix::operator++()
 {
 	for (int i = 0; i < size; ++i) {
@@ -149,6 +167,9 @@ Matrix & Matrix::operator++()
 }
 
 //Overloaed increment operator(postfix)
+//PRE	: Matrix initialized
+//POST	: increment of each element
+//RETURN: reference of this object
 Matrix Matrix::operator++(int)
 {	
 	Matrix temp(*this);
@@ -157,6 +178,9 @@ Matrix Matrix::operator++(int)
 }
 
 //Overloaded decrement operator(prefix)
+//PRE	: Matrix initialized
+//POST	: decrement of each element
+//RETURN: reference of this object
 Matrix & Matrix::operator--()
 {
 	for (int i = 0; i < size; ++i) {
@@ -169,6 +193,9 @@ Matrix & Matrix::operator--()
 }
 
 //Overloaded decrement operator(postfix)
+//PRE	: Matrix initialized
+//POST	: decrement of each element
+//RETURN: reference of this object
 Matrix Matrix::operator--(int)
 {
 	Matrix temp(*this);
@@ -178,6 +205,8 @@ Matrix Matrix::operator--(int)
 
 
 //Swap values between two objects
+//PRE	: both are Matrix object
+//POST	: swap each other
 void swap(Matrix &first, Matrix &second)
 {
 	std::swap(first.size, second.size);
@@ -185,6 +214,8 @@ void swap(Matrix &first, Matrix &second)
 }
 
 //Overloaded assignment operator
+//PRE	: both are Matrix object
+//POST	: lhs is overrided with rhs
 Matrix & Matrix::operator=(Matrix other)
 {
 	swap(*this, other);
@@ -193,6 +224,7 @@ Matrix & Matrix::operator=(Matrix other)
 
 //Overloaded += operator
 //PRE	: both Matrix have to have the same size
+//POST	: rhs matrix is added to lhs matrix
 Matrix & Matrix::operator+=(const Matrix &rhs)
 {
 	for (int i = 0; i < size; ++i) {
@@ -206,14 +238,20 @@ Matrix & Matrix::operator+=(const Matrix &rhs)
 
 //Overloaded + operator
 //PRE	: both Matrix have to have the same size
-Matrix Matrix::operator+(const Matrix& rhs)
+//POST	: rhs matrix is added to lhs matrix
+//RETURN: current Matrix object
+Matrix operator+(Matrix lhs, const Matrix& rhs)
 {
-	*this += rhs;
-	return *this;
+	//Matrix temp(size);
+
+	lhs += rhs;
+	return lhs;
 }
 
 //Overloaded -= operator
 //PRE	: both Matrix have to have the same size
+//POST	: lhs maxtrix is subtracted by rhs
+//RETURN: reference of current Matrix object
 Matrix & Matrix::operator-=(const Matrix &rhs)
 {
 	for (int i = 0; i < size; ++i) {
@@ -227,14 +265,17 @@ Matrix & Matrix::operator-=(const Matrix &rhs)
 
 //Overloaded - operator
 //PRE	: both Matrix have to have the same size
-Matrix Matrix::operator-(const Matrix &rhs)
+//POST	: lhs maxtrix is subtracted by rhs
+//RETURN: current Matrix object
+Matrix operator-(Matrix lhs, const Matrix &rhs)
 {
-	*this -= rhs;
-	return *this;
-	return *this;
+	lhs -= rhs;
+	return lhs;
 }
 
-int Matrix::get_size()
+//Get the matrix size
+//RETURN: the size of matrix
+int Matrix::get_Arraysize()
 {
 	return size * size;
 }

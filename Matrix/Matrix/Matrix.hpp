@@ -4,7 +4,7 @@ class Matrix {
 
 public:
 	Matrix();
-	Matrix(int);
+	explicit Matrix(int);
 	Matrix(int*, int);
 	Matrix(const Matrix&);
 	~Matrix();
@@ -27,12 +27,13 @@ public:
 	friend void swap(Matrix &, Matrix &);
 	Matrix& operator=(Matrix);
 	Matrix& operator+=(const Matrix&);
-	Matrix operator+(const Matrix&);
+	friend Matrix operator+(Matrix,const Matrix&);
 	Matrix & operator-=(const Matrix&);
-	Matrix operator-(const Matrix&);
-	int get_size();
+	friend Matrix operator-(Matrix, const Matrix&);
+	int get_Arraysize();
 
 private:
+	//I called it size but this is more like row and column size which is 'n'
 	int size;
 	int *array;
 
